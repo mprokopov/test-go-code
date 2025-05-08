@@ -20,20 +20,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
-                    sh """
-                              mkdir -p ~/.ssh
-          ssh-keyscan -H target >> ~/.ssh/known_hosts
-"""
-    sh 'scp -i ${key} main ${username}@target:~'
-    sh 'scp -i ${key} main.service ${username}@target:~'
-
-
-                sh '''
-                ssh -i ${key} ${username}@target -C "sudo mv main.service /etc/systemd/system/ ;\
-                sudo systemctl daemon-reload ;\
-                sudo systemctl start main ;\
-                systemctl status main"
-                '''
+                    sh "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -inventory hosts.ini --private-key=${key} playbook.yml"
                 }
             }
         }
