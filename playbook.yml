@@ -7,19 +7,7 @@
     - name: Create a service for app
       become: True
       copy:
-        content: |
-          [Unit]
-          Description=My Application Service
-          After=network.target
-
-          [Service]
-          ExecStart=/home/laborant/main
-          Restart=on-failure
-          User=laborant
-          Group=laborant
-
-          [Install]
-          WantedBy=multi-user.target
+        src: main.service
         dest: 
           /etc/systemd/system/main.service
     - name: Start service
