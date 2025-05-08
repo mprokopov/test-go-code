@@ -26,7 +26,7 @@ pipeline {
 """
     sh 'scp -i ${key} main ${username}@target:~'
     sh 'scp -i ${key} main.service ${username}@target:~'
-}
+
 
                 sh '''
                 ssh -i ${key} ${username}@target -C "sudo mv main.service /etc/systemd/system/ ;\
@@ -34,6 +34,7 @@ pipeline {
                 sudo systemctl start main ;\
                 systemctl status main"
                 '''
+                }
             }
         }
     }
