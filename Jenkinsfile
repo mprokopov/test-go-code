@@ -29,7 +29,10 @@ pipeline {
 }
 
                 sh '''
-                ssh -i ${key} ${username}@target -C "sudo mv main.service /etc/systemd/system/;sudo systemctl start main;systemctl status main"
+                ssh -i ${key} ${username}@target -C "sudo mv main.service /etc/systemd/system/ ;\
+                sudo systemctl daemon-reload ;\
+                sudo systemctl start main ;\
+                systemctl status main"
                 '''
             }
         }
