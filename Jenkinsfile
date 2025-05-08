@@ -6,6 +6,11 @@ pipeline {
     }
 
     stages {
+        stage('Unit test') {
+            steps {
+                sh 'go test ./...'
+            }
+        }
         stage('Build') {
             steps {
                 sh "go version"
