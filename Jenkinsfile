@@ -25,8 +25,12 @@ pipeline {
           ssh-keyscan -H target >> ~/.ssh/known_hosts
 """
     sh 'scp -i ${key} main ${username}@target:~'
+    sh 'scp -i ${key} main.service ${username}@target:~'
 }
-                
+
+                sh '''
+                ssh -i ${key} ${username}@target -C "sudo mv main.service /etc/systemd/system/;sudo systemctl start main;systemctl status main"
+                '''
             }
         }
     }
