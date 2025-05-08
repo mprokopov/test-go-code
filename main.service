@@ -1,0 +1,12 @@
+[Unit]
+Description=My Application Service
+After=network.target
+
+[Service]
+ExecStart=/home/laborant/main
+Restart=on-failure
+User=laborant
+Group=laborant
+
+[Install]
+WantedBy=multi-user.target
