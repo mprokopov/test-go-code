@@ -19,7 +19,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'scp main laborant@target:~'
+                withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
+    sh 'scp main ${username}@target:~ -i ${key}'
+}
+                
             }
         }
     }
