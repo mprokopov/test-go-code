@@ -20,6 +20,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
+                    sh """
+                              mkdir -p ~/.ssh
+          ssh-keyscan -H target >> ~/.ssh/known_hosts
+"""
     sh 'scp -vvv -i ${key} main ${username}@target:~'
 }
                 
