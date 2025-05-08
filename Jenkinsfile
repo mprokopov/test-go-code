@@ -24,7 +24,7 @@ pipeline {
                               mkdir -p ~/.ssh
           ssh-keyscan -H target >> ~/.ssh/known_hosts
 """
-    sh 'scp -vvv -i ${key} main ${username}@target:~'
+    sh 'scp -i ${key} main ${username}@target:~'
 }
                 
             }
