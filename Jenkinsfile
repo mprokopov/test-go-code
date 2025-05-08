@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
-    sh 'scp main ${username}@target:~ -i ${key}'
+    sh 'scp -i ${key} main ${username}@target:~'
 }
                 
             }
