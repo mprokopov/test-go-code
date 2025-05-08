@@ -1,0 +1,30 @@
+- hosts: all
+  tasks:
+    - name: Copy Artifact
+      copy:
+        src: main
+        dest: /home/laborant/main
+    - name: Create a service for app
+      become: True
+      copy:
+        content: |
+          [Unit]
+          Description=My Application Service
+          After=network.target
+
+          [Service]
+          ExecStart=/home/laborant/main
+          Restart=on-failure
+          User=laborant
+          Group=laborant
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: 
+          /etc/systemd/system/main.service
+    - name: Start service
+      become: True
+      ansible.builtin.systemd:
+        name: main.service
+        daemon_reload: true
+        state: started
