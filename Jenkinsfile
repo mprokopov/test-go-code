@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                withKubeConfig([credentialsId: 'k8s', : 'https://k8s:6443']) {
+                withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://k8s:6443']) {
                     sh 'kubectl apply -f pod.yaml'
                 }
             }
