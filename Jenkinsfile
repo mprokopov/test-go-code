@@ -27,7 +27,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
                     sh """
-                    docker run --detach --publish 4444:4444 ttl.sh/myapp:1h
+ssh -i $key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${username}@docker -C 'docker run --detach --publish 4444:4444 ttl.sh/myapp:1h'
                     """
                 }
             }
