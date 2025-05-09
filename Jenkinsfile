@@ -23,14 +23,14 @@ pipeline {
                 sh "docker push ttl.sh/myapp:1h"
             }
         }
-        // stage('Deploy') {
-        //     steps {
-        //         withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
-        //             sh """
-        //             ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --inventory hosts.ini --private-key=${key} playbook.yml
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
+                    sh """
+                    docker run --detach --publish 4444:4444 ttl.sh/myapp:1h
+                    """
+                }
+            }
+        }
     }
 }
