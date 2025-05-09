@@ -25,10 +25,10 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
-                    sh """
-ssh -i $key -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${username}@docker -C 'docker run --detach --publish 4444:4444 ttl.sh/myapp:1h'
-                    """
+                stage('Apply Kubernetes files') {
+                    withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://k8s:6443']) {
+                        sh 'kubectl apply -f pod.yaml'
+                    }
                 }
             }
         }
