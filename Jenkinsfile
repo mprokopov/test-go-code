@@ -17,14 +17,23 @@ pipeline {
                 sh "go build -o main main.go"
             }
         }
-        stage('Deploy') {
+        stage('Build Docker image') {
             steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
+                steps {
                     sh """
-                    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --inventory hosts.ini --private-key=${key} playbook.yml
+                    docker build --tag myapp:latest .
                     """
                 }
             }
         }
+        // stage('Deploy') {
+        //     steps {
+        //         withCredentials([sshUserPrivateKey(credentialsId: 'target-ssh-key', keyFileVariable: 'key', usernameVariable: 'username')]) {
+        //             sh """
+        //             ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --inventory hosts.ini --private-key=${key} playbook.yml
+        //             """
+        //         }
+        //     }
+        // }
     }
 }
