@@ -19,11 +19,7 @@ pipeline {
         }
         stage('Build Docker image') {
             steps {
-                steps {
-                    sh """
-                    docker build --tag myapp:latest .
-                    """
-                }
+                sh "docker build --tag myapp:latest ."
             }
         }
         // stage('Deploy') {
