@@ -3,7 +3,7 @@ Description=My Application Service
 After=network.target
 
 [Service]
-ExecStart=/home/laborant/main
+ExecStart=/home/ec2-user/main
 Restart=on-failure
 User=laborant
 Group=laborant
