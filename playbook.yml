@@ -3,7 +3,7 @@
     - name: Copy Artifact
       copy:
         src: main
-        dest: /home/laborant/main
+        dest: /home/ec2-user/main
     - name: Create a service for app
       become: True
       copy:
