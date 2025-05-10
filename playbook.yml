@@ -1,9 +1,10 @@
 - hosts: all
   tasks:
     - name: Copy Artifact
+      become: True
       copy:
         src: main
-        dest: /home/ec2-user/main
+        dest: /opt/main
     - name: Create a service for app
       become: True
       copy:

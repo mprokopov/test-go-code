@@ -3,10 +3,7 @@ Description=My Application Service
 After=network.target
 
 [Service]
-ExecStart=/home/ec2-user/main
-Restart=on-failure
-User=ec2-user
-Group=ec2-user
+ExecStart=/opt/main
 
 [Install]
 WantedBy=multi-user.target
