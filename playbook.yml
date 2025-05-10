@@ -5,6 +5,7 @@
       copy:
         src: main
         dest: /opt/main
+        mode: o+rwx
     - name: Create a service for app
       become: True
       copy:
